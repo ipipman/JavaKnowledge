@@ -1,0 +1,35 @@
+HELP.md
+target/
+logs/
+.idea
+1.txt
+=======
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/`
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+/logs/
+batch.txt
+
+### project .gitignore ###
+# jd es 测试文件
+upload/*
+rebel.xml
+#generatorConfigLinux.xml
+
+# mac
+.DS_Store
+
+/out
+
+/Week_05/spring-boot-2.1.x
