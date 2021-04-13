@@ -1,6 +1,6 @@
 package com.ipipman.gof.example.singleton;
 
-// 饿汉式
+// 1.饿汉式
 // 饿汉式的实现比较简单，在类加载的时候，instance 静态实例已经创建并初始化好了，所以 instance 实例是线程安全的；
 // 不过，这样实现方式不支持延迟加载，初始化时可能会耗性能；
 
