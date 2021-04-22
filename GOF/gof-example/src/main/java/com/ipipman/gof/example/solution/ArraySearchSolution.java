@@ -14,8 +14,8 @@ public class ArraySearchSolution {
 
     // 统计一个数字在排序数组中出现的次数
     public static int search(int[] nums, int target) {
+
         int l = 0, r = nums.length - 1;
-        int count = 0;
         while (l < r) {
             int mid = l + (r - l) / 2;
             if (nums[mid] >= target) {
@@ -24,6 +24,7 @@ public class ArraySearchSolution {
                 l = mid + 1;
             }
         }
+        int count = 0;
         while (l < nums.length && nums[l++] == target) {
             count++;
         }
@@ -34,26 +35,32 @@ public class ArraySearchSolution {
         int[] nums = new int[]{5, 7, 7, 8, 8, 10};
         Arrays.sort(nums);
         System.out.println(search(nums, 5));
+
+
+        System.out.println(longestPalindrome("abcbc"));
     }
 
-    public String longestPalindrome(String s) {
-        if (s == null || s.length() < 1) return "";
+    public static String longestPalindrome(String s) {
+        if(s == null  || s.length() < 1){
+            return "";
+        }
         int start = 0, end = 0;
         for(int i = 0; i < s.length(); i++){
-            int len1 = toLongestPalindromeLen(s, i, i);
-            int len2 = toLongestPalindromeLen(s, i, i+1);
-            int len = Math.max(len1, len2);
-            if(len > (end - start)){
-                start = i - (len - 1) / 2;
-                end = i + len / 2;
+            int lLen = toLongestPalindromeLen(s, i, i);
+            int rLen = toLongestPalindromeLen(s, i, i+1);
+            int maxLen = Math.max(lLen, rLen);
+            if (maxLen > (end - start)){
+                start = i - (maxLen - 1) / 2;
+                end = i + maxLen / 2;
             }
         }
         return s.substring(start, end + 1);
     }
 
-    public int toLongestPalindromeLen(String s, int left, int right){
+    public static int toLongestPalindromeLen(String s, int left, int right){
         int l = left, r = right;
         while((l >= 0 && r < s.length()) && (s.charAt(l) == s.charAt(r))){
+
             l--;
             r++;
         }
