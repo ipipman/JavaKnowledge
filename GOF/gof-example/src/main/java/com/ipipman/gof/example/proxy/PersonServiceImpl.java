@@ -1,5 +1,8 @@
 package com.ipipman.gof.example.proxy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ipipman on 2021/4/14.
  *
@@ -12,5 +15,6 @@ public class PersonServiceImpl implements IPersonService{
     @Override
     public void doing() {
         System.out.println("PersonServiceImpl doing on ...");
+
     }
 }
