@@ -14,7 +14,7 @@ import java.util.concurrent.Semaphore;
  */
 public class Foobar {
 
-    private int n;
+    private final int n;
 
     Semaphore foo = new Semaphore(1);
     Semaphore bar = new Semaphore(0);
@@ -38,7 +38,6 @@ public class Foobar {
             foo.release();
         }
     }
-
 
     public static void main(String[] args) throws InterruptedException {
         Foobar foobar = new Foobar(10);
