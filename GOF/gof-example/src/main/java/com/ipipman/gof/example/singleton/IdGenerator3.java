@@ -9,30 +9,35 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class IdGenerator3 {
 
-    private static volatile IdGenerator3 idGenerator3 = null;
+    private static volatile IdGenerator3 instance = null;
 
-    private IdGenerator3() {
+    private int generatorId = 0;
+
+    private IdGenerator3(){
 
     }
 
-    public static IdGenerator3 getInstance() {
-        if (idGenerator3 == null) {
-            synchronized (IdGenerator3.class) {
-                if (idGenerator3 == null) {
-                    idGenerator3 = new IdGenerator3();
+    public static IdGenerator3 getInstance(){
+        if (instance == null){
+            synchronized (IdGenerator3.class){
+                if (instance == null){
+                    instance = new IdGenerator3();
                 }
             }
         }
-        return idGenerator3;
+        return instance;
     }
 
-    public int getId() {
-        return 1;
+    public int getGeneratorId(){
+        return generatorId++;
     }
 
-    // TODO Testing...
+
     public static void main(String[] args) {
-        IdGenerator3 idGenerator3 = IdGenerator3.getInstance();
-        System.out.println(idGenerator3.getId());
+        for (int i = 0; i < 10; i++) {
+            System.out.println(IdGenerator3.getInstance().getGeneratorId());
+        }
+
     }
+
 }
