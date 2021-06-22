@@ -2,6 +2,7 @@ package com.drools.quickstart;
 
 import com.drools.quickstart.entity.ComparisonOperatorEntity;
 import com.drools.quickstart.entity.Order;
+import com.drools.quickstart.entity.Student;
 import org.drools.core.base.RuleNameEqualsAgendaFilter;
 import org.junit.Test;
 import org.kie.api.KieServices;
@@ -83,6 +84,40 @@ public class DroolsTest {
         //通过规则过滤器实现只执行指定规则
         kieSession.fireAllRules(new RuleNameEqualsAgendaFilter("rule_comparison_memberOf"));
 
+        kieSession.dispose();
+    }
+
+    //测试RHS部分的update方法
+    @Test
+    public void test5(){
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        KieSession kieSession = kieClasspathContainer.newKieSession();
+
+        Student student = new Student();
+        student.setAge(5);
+
+        //将数据提供给规则引擎，规则引擎会根据提供的数据进行规则匹配，如果规则匹配成功则执行规则
+        kieSession.insert(student);
+
+        kieSession.fireAllRules();
+        kieSession.dispose();
+    }
+
+    //测试RHS部分的insert方法
+    @Test
+    public void test6(){
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        KieSession kieSession = kieClasspathContainer.newKieSession();
+
+        Student student = new Student();
+        student.setAge(10);
+
+        //将数据提供给规则引擎，规则引擎会根据提供的数据进行规则匹配，如果规则匹配成功则执行规则
+        kieSession.insert(student);
+
+        kieSession.fireAllRules();
         kieSession.dispose();
     }
 }
