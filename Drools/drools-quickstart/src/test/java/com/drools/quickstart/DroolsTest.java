@@ -47,7 +47,7 @@ public class DroolsTest {
 
     //测试比较操作符
     @Test
-    public void test3(){
+    public void test3() {
         KieServices kieServices = KieServices.Factory.get();
         KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
         KieSession kieSession = kieClasspathContainer.newKieSession();
@@ -68,7 +68,7 @@ public class DroolsTest {
 
     //执行指定规则
     @Test
-    public void test4(){
+    public void test4() {
         KieServices kieServices = KieServices.Factory.get();
         KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
         KieSession kieSession = kieClasspathContainer.newKieSession();
@@ -89,7 +89,7 @@ public class DroolsTest {
 
     //测试RHS部分的update方法
     @Test
-    public void test5(){
+    public void test5() {
         KieServices kieServices = KieServices.Factory.get();
         KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
         KieSession kieSession = kieClasspathContainer.newKieSession();
@@ -106,7 +106,7 @@ public class DroolsTest {
 
     //测试RHS部分的insert方法
     @Test
-    public void test6(){
+    public void test6() {
         KieServices kieServices = KieServices.Factory.get();
         KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
         KieSession kieSession = kieClasspathContainer.newKieSession();
@@ -118,6 +118,68 @@ public class DroolsTest {
         kieSession.insert(student);
 
         kieSession.fireAllRules();
+        kieSession.dispose();
+    }
+
+    //测试rule属性no-loop
+    @Test
+    public void test7() {
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        KieSession kieSession = kieClasspathContainer.newKieSession();
+
+        Student student = new Student();
+        student.setAge(25);
+
+        //将数据提供给规则引擎，规则引擎会根据提供的数据进行规则匹配，如果规则匹配成功则执行规则
+        kieSession.insert(student);
+
+        kieSession.fireAllRules();
+        kieSession.dispose();
+    }
+
+    //测试rule属性activation-group，激活分组
+    @Test
+    public void test8() {
+        //activation-group属性是指激活分组，取值为String类型。具有相同分组名称的规则只能有一个规则被触发。
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        KieSession kieSession = kieClasspathContainer.newKieSession();
+        kieSession.fireAllRules();
+        kieSession.dispose();
+    }
+
+    //测试rule属性agenda-group，议程分组，需要指定焦点
+    @Test
+    public void test9() {
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        KieSession kieSession = kieClasspathContainer.newKieSession();
+
+        //设置焦点，对应agenda-group分组中的规则才可能被触发
+        kieSession.getAgenda().getAgendaGroup("myagendagroup_1").setFocus();
+
+        kieSession.fireAllRules();
+        kieSession.dispose();
+    }
+
+    //测试rule属性timer，定时器
+    @Test
+    public void test10() throws Exception{
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        final KieSession kieSession = kieClasspathContainer.newKieSession();
+
+        new Thread(new Runnable() {
+            public void run() {
+                //启动规则引擎进行规则匹配，直到调用halt方法才结束规则引擎
+                kieSession.fireUntilHalt();
+            }
+        }).start();
+
+        Thread.sleep(10000);
+        //结束规则引擎
+        kieSession.halt();
         kieSession.dispose();
     }
 }

@@ -1,0 +1,25 @@
+package testactivationgroup
+/*
+    此规则文件用于测试activation-group属性
+*/
+
+
+rule "rule_activationgroup_1"
+    /**
+        activation-group属性是指激活分组，取值为String类型。具有相同分组名称的规则只能有一个规则被触发。
+    */
+    activation-group "mygroup"
+    when
+    then
+        System.out.println("规则rule_activationgroup_1触发");
+end
+
+rule "rule_activationgroup_2"
+    /**
+        activation-group属性是指激活分组，取值为String类型。具有相同分组名称的规则只能有一个规则被触发。
+    */
+    activation-group "mygroup"
+    when
+    then
+        System.out.println("规则rule_activationgroup_2触发");
+end

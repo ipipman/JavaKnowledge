@@ -1,0 +1,22 @@
+package testtimer
+import java.text.SimpleDateFormat
+import java.util.Date
+/*
+    此规则文件用于测试timer属性
+*/
+
+rule "rule_timer_1"
+    timer (5s 2s) //含义：5秒后触发，然后每隔2秒触发一次
+    when
+    then
+        System.out.println("规则rule_timer_1触发，触发时间为：" +
+                         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+end
+
+rule "rule_timer_2"
+    timer (cron:0/1 * * * * ?) //含义：每隔1秒触发一次
+    when
+    then
+        System.out.println("规则rule_timer_2触发，触发时间为：" +
+                         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+end

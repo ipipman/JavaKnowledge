@@ -1,0 +1,18 @@
+package testnoloop
+import com.drools.quickstart.entity.Student;
+
+/*
+    此规则文件用于测试no-loop属性
+*/
+
+rule "rule_noloop"
+    /**
+        no-loop属性用于防止死循环，当规则通过update之类的函数修改了Fact对象时，可能使当前规则再次被激活从而导致死循环
+    */
+    no-loop true
+    when
+        $student:Student(age == 25)
+    then
+        update($student);//注意此处执行update会导致当前规则重新被激活
+        System.out.println("规则rule_noloop触发");
+end

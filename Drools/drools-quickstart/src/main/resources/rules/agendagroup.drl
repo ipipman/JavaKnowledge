@@ -1,0 +1,56 @@
+package testagendagroup
+/*
+    此规则文件用于测试agenda-group属性
+*/
+rule "rule_agendagroup_1"
+    /**
+        agenda-group属性为议程分组，属于另一种可控的规则执行方式。
+        用户可以通过设置agenda-group来控制规则的执行，只有获取焦点的组中的规则才会被触发。
+    */
+    agenda-group "myagendagroup_1"
+    when
+    then
+        System.out.println("规则rule_agendagroup_1触发");
+end
+
+rule "rule_agendagroup_2"
+    /**
+        agenda-group属性为议程分组，属于另一种可控的规则执行方式。
+        用户可以通过设置agenda-group来控制规则的执行，只有获取焦点的组中的规则才会被触发。
+    */
+    agenda-group "myagendagroup_1"
+    when
+    then
+        System.out.println("规则rule_agendagroup_2触发");
+end
+
+//========================================================
+rule "rule_agendagroup_3"
+    /**
+        agenda-group属性为议程分组，属于另一种可控的规则执行方式。
+        用户可以通过设置agenda-group来控制规则的执行，只有获取焦点的组中的规则才会被触发。
+    */
+    agenda-group "myagendagroup_2"
+    /**
+        自动获取焦点
+    */
+    auto-focus true
+    when
+    then
+        System.out.println("规则rule_agendagroup_3触发");
+end
+
+rule "rule_agendagroup_4"
+    /**
+        agenda-group属性为议程分组，属于另一种可控的规则执行方式。
+        用户可以通过设置agenda-group来控制规则的执行，只有获取焦点的组中的规则才会被触发。
+    */
+    agenda-group "myagendagroup_2"
+    /**
+        自动获取焦点
+    */
+    auto-focus true
+    when
+    then
+        System.out.println("规则rule_agendagroup_4触发");
+end
