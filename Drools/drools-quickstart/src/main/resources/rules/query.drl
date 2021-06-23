@@ -5,6 +5,9 @@ import com.drools.quickstart.entity.Student;
     此规则文件用于测试query查询
 */
 
+//query查询提供了一种查询working memory中符合约束条件的Fact对象的简单方法。
+//它仅包含规则文件中的LHS部分，不用指定“when”和“then”部分并且以end结束。
+
 //不带参数的查询
 //当前query用于查询Working Memory中age>10的Student对象
 query "query_1"

@@ -1,0 +1,23 @@
+package testfunction
+import com.drools.quickstart.entity.Student;
+
+
+/*
+    此规则文件用于测试function函数
+    function关键字用于在规则文件中定义函数，就相当于java类中的方法一样。
+    可以在规则体中调用定义的函数。使用函数的好处是可以将业务逻辑集中放置在一个地方，根据需要可以对函数进行修改。
+*/
+
+//定义一个函数
+function String sayHello(String name){
+    return "hello " + name;
+}
+
+rule "rule_function_1"
+    when
+        $student:Student(name != null)
+    then
+        //调用上面定义的函数
+        String ret = sayHello($student.getName());
+        System.out.println(ret);
+end

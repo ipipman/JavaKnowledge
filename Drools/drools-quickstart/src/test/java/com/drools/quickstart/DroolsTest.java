@@ -252,4 +252,22 @@ public class DroolsTest {
         //kieSession.fireAllRules();
         kieSession.dispose();
     }
+
+
+    //function关键字用于在规则文件中定义函数，就相当于java类中的方法一样。可以在规则体中调用定义的函数。
+    //使用函数的好处是可以将业务逻辑集中放置在一个地方，根据需要可以对函数进行修改。
+    @Test
+    public void test13() {
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        KieSession kieSession = kieClasspathContainer.newKieSession();
+
+        Student student = new Student();
+        student.setName("小明");
+
+        kieSession.insert(student);
+
+        //kieSession.fireAllRules();
+        kieSession.dispose();
+    }
 }
