@@ -3,6 +3,7 @@ package com.drools.quickstart;
 import com.drools.quickstart.entity.ComparisonOperatorEntity;
 import com.drools.quickstart.entity.Order;
 import com.drools.quickstart.entity.Student;
+import com.drools.quickstart.service.UserService;
 import org.drools.core.base.RuleNameEqualsAgendaFilter;
 import org.junit.Test;
 import org.kie.api.KieServices;
@@ -165,7 +166,7 @@ public class DroolsTest {
 
     //测试rule属性timer，定时器
     @Test
-    public void test10() throws Exception{
+    public void test10() throws Exception {
         KieServices kieServices = KieServices.Factory.get();
         KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
         final KieSession kieSession = kieClasspathContainer.newKieSession();
@@ -181,5 +182,26 @@ public class DroolsTest {
         //结束规则引擎
         kieSession.halt();
         kieSession.dispose();
+    }
+
+    //测试rule高级语法global
+    @Test
+    public void test11() {
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        KieSession kieSession = kieClasspathContainer.newKieSession();
+
+        //设置全局变量，名称和类型必须和规则文件中定义的全局变量名称对应
+        kieSession.setGlobal("userService", new UserService());
+        kieSession.setGlobal("count", 5);
+        List list = new ArrayList();    //size为0
+        list.add("ipman");
+        kieSession.setGlobal("gList", list);
+
+        kieSession.fireAllRules();
+        kieSession.dispose();
+
+        //因为在规则中为全局变量添加了两个元素，所以现在的size为2
+        System.out.println(list.size());
     }
 }

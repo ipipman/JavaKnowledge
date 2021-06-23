@@ -1,0 +1,32 @@
+package testglobal
+
+/*
+    此规则文件用于测试global全局变量
+*/
+
+global java.lang.Integer count //定义一个包装类型的全局变量
+global com.drools.quickstart.service.UserService userService //定义一个JavaBean类型的全局变量
+global java.util.List gList //定义一个集合类型的全局变量
+
+rule "rule_global_1"
+    when
+    then
+        System.out.println("触发：rule_global_1");
+        count += 10; //全局变量计算，只对当前规则有效，其他规则不受影响
+        userService.save();//调用全局变量的方法
+        gList.add("itcast");//向集合类型的全局变量中添加元素，Java代码和所有规则都受影响
+        gList.add("itheima");
+        System.out.println("count=" + count);
+        System.out.println("gList.size=" + gList.size());
+        System.out.println("gList=" + gList);
+end
+
+rule "rule_global_2"
+    when
+    then
+        System.out.println("触发：rule_global_2");
+        userService.save();
+        System.out.println("count=" + count);
+        System.out.println("gList.size=" + gList.size());
+        System.out.println("gList=" + gList);
+end
