@@ -1,0 +1,18 @@
+package testquery
+import com.drools.quickstart.entity.Student;
+
+/*
+    此规则文件用于测试query查询
+*/
+
+//不带参数的查询
+//当前query用于查询Working Memory中age>10的Student对象
+query "query_1"
+    $student:Student(age > 10)
+end
+
+//带有参数的查询
+//当前query用于查询Working Memory中age>10同时name需要和传递的参数name相同的Student对象
+query "query_2"(String sname)
+    $student:Student(age > 20 && name == sname)
+end

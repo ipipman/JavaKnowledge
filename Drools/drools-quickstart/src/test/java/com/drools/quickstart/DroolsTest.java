@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.QueryResults;
+import org.kie.api.runtime.rule.QueryResultsRow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -203,5 +205,51 @@ public class DroolsTest {
 
         //因为在规则中为全局变量添加了两个元素，所以现在的size为2
         System.out.println(list.size());
+    }
+
+    //query查询提供了一种查询working memory中符合约束条件的Fact对象的简单方法。
+    // 它仅包含规则文件中的LHS部分，不用指定“when”和“then”部分并且以end结束。
+    @Test
+    public void test12() {
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        KieSession kieSession = kieClasspathContainer.newKieSession();
+
+        Student student1 = new Student();
+        student1.setName("张三");
+        student1.setAge(12);
+
+        Student student2 = new Student();
+        student2.setName("李四");
+        student2.setAge(8);
+
+        Student student3 = new Student();
+        student3.setName("王五");
+        student3.setAge(22);
+
+        //将对象插入Working Memory中
+        kieSession.insert(student1);
+        kieSession.insert(student2);
+        kieSession.insert(student3);
+
+        //调用规则文件中的查询
+        QueryResults results1 = kieSession.getQueryResults("query_1");
+        int size = results1.size();
+        System.out.println("size=" + size);
+        for (QueryResultsRow row : results1) {
+            Student student = (Student) row.get("$student");
+            System.out.println(student);
+        }
+
+        //调用规则文件中的查询
+        QueryResults results2 = kieSession.getQueryResults("query_2", "王五");
+        size = results2.size();
+        System.out.println("size=" + size);
+        for (QueryResultsRow row : results2) {
+            Student student = (Student) row.get("$student");
+            System.out.println(student);
+        }
+        //kieSession.fireAllRules();
+        kieSession.dispose();
     }
 }
