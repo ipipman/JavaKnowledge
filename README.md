@@ -1,6 +1,6 @@
 # 必读
 
-### 一.如果没有VPN的用户，在查阅Readme文章时，需要绑定Host！
+## 一.如果没有VPN的用户，在查阅Readme文章时，需要绑定Host！
 
 ```shell script
 # GitHub Start
